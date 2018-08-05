@@ -71,7 +71,7 @@ $(function() {
     * hiding/showing of the menu element.
     */
     it('should be hidden by default', function() {
-      const bodyClassList = document.getElementsByTagName('body')[0].classList;
+      const bodyClassList = document.querySelector('body').classList;
 
       expect(bodyClassList.contains('menu-hidden')).toBe(true);
     });
@@ -82,12 +82,11 @@ $(function() {
     * clicked and does it hide when clicked again.
     */
     it('should toggle between visible/hidden when clicked', function() {
-      const bodyClassList = document.getElementsByTagName('body')[0].classList;
-      const menuIcon = document.getElementsByClassName('menu-icon-link')[0];
+      const bodyClassList = document.querySelector('body').classList;
+      const menuIcon = document.querySelector('.menu-icon-link');
 
       const click = new Event('click');
 
-      console.log(menuIcon);
       menuIcon.dispatchEvent(click);
       expect(bodyClassList.contains('menu-hidden')).toBe(false);
 
@@ -98,14 +97,14 @@ $(function() {
 
   /* Write a new test suite named "Initial Entries" */
   describe('Initial Entries', function() {
-    /* TODO: Write a test that ensures when the loadFeed
+
+    /* Write a test that ensures when the loadFeed
     * function is called and completes its work, there is at least
     * a single .entry element within the .feed container.
     * Remember, loadFeed() is asynchronous so this test will require
     * the use of Jasmine's beforeEach and asynchronous done() function.
     */
-
-    const feedContainer = document.getElementsByClassName('feed')[0];
+    const feedContainer = document.querySelector('.feed');
 
     beforeEach(function(done) {
       loadFeed(0, done);
