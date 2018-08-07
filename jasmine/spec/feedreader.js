@@ -90,27 +90,18 @@ $(function() {
     * function is called and completes its work, there is at least
     * a single .entry element within the .feed container.
     */
-    const feedContainer = document.querySelector('.feed');
 
+    // Run async loadFeed function to completion before test
     beforeEach(function(done) {
       loadFeed(0, done);
     });
 
     it('should load at least one entry', function(done) {
-      // Create list of <a> elements in feed
-      const feedArticles = feedContainer.children;
-      // Instantiate variable to monitor if article with "entry" class is present
-      let checkEntry = false;
+      // Create list of elements with 'feed' and 'entry' class
+      const feedArticles = document.querySelectorAll('.feed .entry');
 
-      // Check each <a> element's children elements (<article>s for "entry" class)
-      for (article of feedArticles) {
-        if (article.firstElementChild.classList.contains('entry')) {
-          // Set checkEntry to true if at least one <article> has "entry" class
-          checkEntry = true;
-        };
-      };
-
-      expect(checkEntry).toBe(true);
+      // Ensure the collection of feedArticles includes at least one entry item
+      expect(feedArticles.length).toBeGreaterThan(0);
       done();
     });
   });
