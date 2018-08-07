@@ -122,24 +122,26 @@ $(function() {
      * by the loadFeed function that the content actually changes.
      */
     const feedContainer = document.querySelector('.feed');
+    // Instantiate array of elements for original feed
     const originalFeed = [];
+    // Instantiate array of elements after loadFeed has been run again
+    const newFeed = [];
 
     beforeEach(function(done) {
+      // Run initial load and put each feed element into an array
       loadFeed(0);
-      // Establish array of elements from original feed
       for (feed of feedContainer.children) {
         originalFeed.push(feed);
       };
-      loadFeed(1, done);
-    });
 
-    it('should load new content when loadFeed runs', function() {
-      const newFeed = [];
-      // Establish array of elements after loadFeed has been run again
+      // Re-load the feeds and put each feed element into an array
+      loadFeed(1, done);
       for (feed of feedContainer.children) {
         newFeed.push(feed);
       };
+    });
 
+    it('should load new content when loadFeed runs', function() {
       expect(originalFeed).not.toBe(newFeed);
     });
   });
