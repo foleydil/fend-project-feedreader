@@ -97,8 +97,20 @@ $(function() {
     });
 
     it('should load at least one entry', function(done) {
-      // Check feed for at least one .entry element
-      expect(feedContainer.getElementsByClassName('entry')).not.toBe(null);
+      // Create list of <a> elements in feed
+      const feedArticles = feedContainer.children;
+      // Instantiate variable to monitor if article with "entry" class is present
+      let checkEntry = false;
+
+      // Check each <a> element's children elements (<article>s for "entry" class)
+      for (article of feedArticles) {
+        if (article.firstElementChild.classList.contains('entry')) {
+          // Set checkEntry to true if at least one <article> has "entry" class
+          checkEntry = true;
+        };
+      };
+
+      expect(checkEntry).toBe(true);
       done();
     });
   });
