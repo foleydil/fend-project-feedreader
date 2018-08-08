@@ -114,22 +114,21 @@ $(function() {
      */
     const feedContainer = document.querySelector('.feed');
     // Instantiate array of elements for original feed
-    const originalFeed = [];
+    let originalFeed = '';
     // Instantiate array of elements after loadFeed has been run again
-    const newFeed = [];
+    let newFeed = '';
 
     beforeEach(function(done) {
       // Run initial load and put each feed element into an array
-      loadFeed(0);
-      for (feed of feedContainer.children) {
-        originalFeed.push(feed);
-      };
+      loadFeed(0, function() {
+        originalFeed = feedContainer.innerHTML;
 
-      // Re-load the feeds and put each feed element into an array
-      loadFeed(1, done);
-      for (feed of feedContainer.children) {
-        newFeed.push(feed);
-      };
+        // Re-load the feeds and put each feed element into an array
+        loadFeed(1, function() {
+          newFeed = feedContainer.innerHTML;
+          done();
+        });
+      });
     });
 
     it('should load new content when loadFeed runs', function() {
